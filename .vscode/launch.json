@@ -10,7 +10,7 @@
             "cwd": "${command:cmake.getLaunchTargetDirectory}",
             "environment": [],
             "console": "integratedTerminal",
-            "visualizerFile": "c:\\Users\\NoneType4Name\\AppData\\Roaming\\Code\\User\\workspaceStorage\\6fa2519de502bd6fe2cd00008c166ae9\\tonka3000.qtvsctools\\qt.natvis.xml"
+            "visualizerFile": "c:\\Users\\MegaD\\AppData\\Roaming\\Code\\User\\workspaceStorage\\a58d9ca7e2aaf94d457f1bcde5ed2a12\\tonka3000.qtvsctools\\qt.natvis.xml"
         }
     ],
     "version": "2.0.0"

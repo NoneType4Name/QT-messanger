@@ -1,12 +1,10 @@
-#include "mainwindow.h"
-#include "pages.h"
+#include "registerwindow.h"
 
-mainWindow::mainWindow( QStackedWidget &sw, QWidget *parent ) :
-    QMainWindow( parent ), sw( sw )
+registerWindow ::registerWindow( QStackedWidget &sw, QWidget *parent ) :
+    QWidget( parent ), sw( sw )
 {
     if ( objectName().isEmpty() )
-        setObjectName( "MainWindow" );
-    resize( 800, 600 );
+        setObjectName( "registerWindow" );
     QSizePolicy sizePolicy( QSizePolicy::Policy::Fixed, QSizePolicy::Policy::Fixed );
     sizePolicy.setHorizontalStretch( 0 );
     sizePolicy.setVerticalStretch( 0 );
@@ -133,53 +131,20 @@ mainWindow::mainWindow( QStackedWidget &sw, QWidget *parent ) :
 
     verticalLayout_2->addLayout( horizontalLayout );
 
-    auto goToRegister = new QPushButton( centralwidget );
-    goToRegister->setObjectName( "goToRegister" );
-    QSizePolicy gtrSizePolicy( QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Preferred );
-    gtrSizePolicy.setHorizontalStretch( 0 );
-    gtrSizePolicy.setVerticalStretch( 0 );
-    gtrSizePolicy.setHeightForWidth( goToRegister->sizePolicy().hasHeightForWidth() );
-    goToRegister->setSizePolicy( gtrSizePolicy );
-    QFont gtrFont;
-    gtrFont.setFamilies( { QString::fromUtf8( "Cascadia Mono" ) } );
-    gtrFont.setPointSize( 18 );
-    goToRegister->setFont( gtrFont );
-    goToRegister->setStyleSheet( QString::fromUtf8(
-        "QPushButton{"
-        "color: rgb(255, 255, 255);\n"
-        "background-color: rgba(255, 255, 255, 0);\n"
-        "}\n"
-        "QPushButton:hover{\n"
-        "color: rgb(125, 0, 255);\n"
-        "}\n" ) );
-    goToRegister->setCursor( QCursor( Qt::PointingHandCursor ) );
-    // goToRegister->setAlignment( Qt::AlignCenter );
-
-    verticalLayout->addWidget( goToRegister );
-
-    goToRegister->setText( "Еще не зарегистрированы?" );
-
-    setCentralWidget( centralwidget );
-
     setWindowTitle( "QT-messanger" );
-    label->setText( "С возвращением!~" );
+    label->setText( "Добро пожаловать!~" );
     lineEdit_2->setPlaceholderText( "♥ Введите логин" );
     lineEdit->setPlaceholderText( "Пароль ◕‿◕" );
-    pushButton->setText( "Авторизоваться ♥" );
+    pushButton->setText( "Зарегистрироваться ♥" );
 
     QMetaObject::connectSlotsByName( this );
 }
 
-mainWindow::~mainWindow()
+registerWindow ::~registerWindow()
 {
 }
 
-void mainWindow::on_pushButton_clicked()
+void registerWindow ::on_pushButton_clicked()
 {
     qDebug() << lineEdit_2->text() << "\t" << lineEdit->text() << "\n";
-}
-
-void mainWindow::on_goToRegister_clicked()
-{
-    sw.setCurrentIndex( RegisterPage );
 }
