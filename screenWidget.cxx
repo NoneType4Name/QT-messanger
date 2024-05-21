@@ -1,5 +1,4 @@
-#include "signINwidget.hxx"
-#include "signupwidget.hxx"
+#include "authWidget.hxx"
 #include "screenWidget.hxx"
 
 screenWidget::screenWidget( QWidget *parent ) :
@@ -14,11 +13,9 @@ screenWidget::screenWidget( QWidget *parent ) :
     setSizePolicy( sizePolicy );
     setStyleSheet( QString::fromUtf8( "background-color: rgb(0, 0, 0);" ) );
     setWindowTitle( "QT-messanger" );
-    signIN = new signINWidget( this );
-    signUP = new signUPwidget( this );
+    auth = new authWidget( this );
 
-    this->addWidget( signIN );
-    this->addWidget( signUP );
+    this->addWidget( auth );
 }
 
 screenWidget::~screenWidget()

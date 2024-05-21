@@ -1,10 +1,10 @@
-#include "signINwidget.hxx"
+#include "authWidget.hxx"
 
-signINWidget::signINWidget( screenWidget *screen, QWidget *parent ) :
+authWidget::authWidget( screenWidget *screen, QWidget *parent ) :
     screen( screen ), QMainWindow( parent )
 {
     if ( objectName().isEmpty() )
-        setObjectName( "signINwidget" );
+        setObjectName( "authWidget" );
     resize( 800, 600 );
     QSizePolicy sizePolicy( QSizePolicy::Policy::Fixed, QSizePolicy::Policy::Fixed );
     sizePolicy.setHorizontalStretch( 0 );
@@ -28,22 +28,22 @@ signINWidget::signINWidget( screenWidget *screen, QWidget *parent ) :
 
     verticalLayout->addItem( verticalSpacer );
 
-    welcomeLabel = new QLabel( centralwidget );
-    welcomeLabel->setObjectName( "welcomeLabel" );
+    label = new QLabel( centralwidget );
+    label->setObjectName( "label" );
     QSizePolicy sizePolicy1( QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Preferred );
     sizePolicy1.setHorizontalStretch( 0 );
     sizePolicy1.setVerticalStretch( 0 );
-    sizePolicy1.setHeightForWidth( welcomeLabel->sizePolicy().hasHeightForWidth() );
-    welcomeLabel->setSizePolicy( sizePolicy1 );
+    sizePolicy1.setHeightForWidth( label->sizePolicy().hasHeightForWidth() );
+    label->setSizePolicy( sizePolicy1 );
     QFont font;
     font.setFamilies( { QString::fromUtf8( "Cascadia Mono" ) } );
     font.setPointSize( 18 );
-    welcomeLabel->setFont( font );
-    welcomeLabel->setStyleSheet( QString::fromUtf8( "color: rgb(255, 255, 255);\n"
-                                                    "background-color: rgba(255, 255, 255, 0);" ) );
-    welcomeLabel->setAlignment( Qt::AlignCenter );
+    label->setFont( font );
+    label->setStyleSheet( QString::fromUtf8( "color: rgb(255, 255, 255);\n"
+                                             "background-color: rgba(255, 255, 255, 0);" ) );
+    label->setAlignment( Qt::AlignCenter );
 
-    verticalLayout->addWidget( welcomeLabel );
+    verticalLayout->addWidget( label );
 
     login = new QLineEdit( centralwidget );
     login->setObjectName( "login" );
@@ -132,18 +132,18 @@ signINWidget::signINWidget( screenWidget *screen, QWidget *parent ) :
 
     verticalLayout_2->addLayout( horizontalLayout );
 
-    registrationReferenceButton = new QPushButton( centralwidget );
-    registrationReferenceButton->setObjectName( "registrationReferenceButton" );
+    referenceButton = new QPushButton( centralwidget );
+    referenceButton->setObjectName( "referenceButton" );
     QSizePolicy gtrSizePolicy( QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Preferred );
     gtrSizePolicy.setHorizontalStretch( 0 );
     gtrSizePolicy.setVerticalStretch( 0 );
-    gtrSizePolicy.setHeightForWidth( registrationReferenceButton->sizePolicy().hasHeightForWidth() );
-    registrationReferenceButton->setSizePolicy( gtrSizePolicy );
+    gtrSizePolicy.setHeightForWidth( referenceButton->sizePolicy().hasHeightForWidth() );
+    referenceButton->setSizePolicy( gtrSizePolicy );
     QFont gtrFont;
     gtrFont.setFamilies( { QString::fromUtf8( "Cascadia Mono" ) } );
     gtrFont.setPointSize( 18 );
-    registrationReferenceButton->setFont( gtrFont );
-    registrationReferenceButton->setStyleSheet( QString::fromUtf8(
+    referenceButton->setFont( gtrFont );
+    referenceButton->setStyleSheet( QString::fromUtf8(
         "QPushButton{"
         "color: rgb(255, 255, 255);\n"
         "background-color: rgba(255, 255, 255, 0);\n"
@@ -151,34 +151,48 @@ signINWidget::signINWidget( screenWidget *screen, QWidget *parent ) :
         "QPushButton:hover{\n"
         "color: rgb(125, 0, 255);\n"
         "}\n" ) );
-    registrationReferenceButton->setCursor( QCursor( Qt::PointingHandCursor ) );
+    referenceButton->setCursor( QCursor( Qt::PointingHandCursor ) );
     // goToRegister->setAlignment( Qt::AlignCenter );
 
-    verticalLayout->addWidget( registrationReferenceButton );
-
-    registrationReferenceButton->setText( "Еще не зарегистрированы?" );
-
-    setWindowTitle( "QT-messanger" );
-    welcomeLabel->setText( "С возвращением!~" );
+    verticalLayout->addWidget( referenceButton );
     login->setPlaceholderText( "♥ Введите логин" );
     password->setPlaceholderText( "Пароль ◕‿◕" );
-    enterButton->setText( "Авторизоваться ♥" );
-
+    reference();
     setCentralWidget( centralwidget );
 
     QMetaObject::connectSlotsByName( this );
 }
 
-signINWidget::~signINWidget()
+authWidget::~authWidget()
 {
 }
 
-void signINWidget::on_enterButton_clicked()
+void authWidget::reference()
 {
-    qDebug() << login->text() << "\t" << password->text() << "\n";
+    if ( registration )
+    {
+        label->setText( "Добро пожаловать!~" );
+        enterButton->setText( "Зарегестрироваться ♥" );
+        referenceButton->setText( "Уже есть аккаунт?" );
+    }
+    else
+    {
+        label->setText( "С возвращением!~" );
+        enterButton->setText( "Авторизоваться ♥" );
+        referenceButton->setText( "Ещё нет аккаунта?" );
+    }
 }
 
-void signINWidget::on_registrationReferenceButton_clicked()
+void authWidget::on_enterButton_clicked()
 {
-    screen->setCurrentWidget( screen->signUP );
+    if ( registration )
+        qDebug() << login->text() << "\t" << password->text() << "\n";
+    else
+        qDebug() << login->text() << "\t" << password->text() << "\n";
+}
+
+void authWidget::on_referenceButton_clicked()
+{
+    registration = !registration;
+    reference();
 }

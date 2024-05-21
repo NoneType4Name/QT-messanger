@@ -21,8 +21,7 @@ class screenWidget : public QStackedWidget
   public:
     screenWidget( QWidget *parent = nullptr );
     ~screenWidget();
-    QMainWindow *signIN;
-    QMainWindow *signUP;
+    QMainWindow *auth;
 };
 
 #endif

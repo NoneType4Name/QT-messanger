@@ -14,12 +14,10 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 set(PROJECT_SOURCES
     main.cxx
-    signINWidget.cxx
-    signINWidget.hxx
-    signUPwidget.cxx
-    signUPwidget.hxx
-    screenWidget.cxx
     screenWidget.hxx
+    screenWidget.cxx
+    authWidget.cxx
+    authWidget.hxx
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

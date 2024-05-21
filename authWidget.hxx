@@ -1,7 +1,6 @@
 #pragma once
-#ifndef SIGNINWIDGET_H
-#    define SIGNINWIDGET_H
-#    include <QMainWindow>
+#ifndef SIGNUPWIDGET_H
+#    define SIGNUPWIDGET_H
 #    include <QtCore/QVariant>
 #    include <QtWidgets/QApplication>
 #    include <QtWidgets/QHBoxLayout>
@@ -16,33 +15,35 @@
 #    include <QStackedWidget>
 #    include "screenWidget.hxx"
 
-class signINWidget : public QMainWindow
+class authWidget : public QMainWindow
 {
     Q_OBJECT
 
   public:
-    signINWidget( screenWidget *screen, QWidget *parent = nullptr );
-    ~signINWidget();
+    authWidget( screenWidget *screen, QWidget *parent = nullptr );
+    ~authWidget();
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout_2;
     QHBoxLayout *horizontalLayout;
     QSpacerItem *horizontalSpacer;
     QVBoxLayout *verticalLayout;
     QSpacerItem *verticalSpacer;
-    QLabel *welcomeLabel;
+    QLabel *label;
     QLineEdit *login;
     QLineEdit *password;
     QPushButton *enterButton;
-    QPushButton *registrationReferenceButton;
+    QPushButton *referenceButton;
     QSpacerItem *verticalSpacer_2;
     QSpacerItem *horizontalSpacer_2;
-
-  private:
     screenWidget *screen;
+    bool registration;
 
   private slots:
     void on_enterButton_clicked();
-    void on_registrationReferenceButton_clicked();
+    void on_referenceButton_clicked();
+
+  private:
+    void reference();
 };
 
-#endif // SIGNINWIDGET_H
+#endif // AUTHWIDGET_H
