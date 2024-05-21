@@ -1,7 +1,7 @@
 #include <QApplication>
 #include <QStackedWidget>
-#include "signINwidget.h"
-#include "signupwidget.h"
+#include "signINwidget.hxx"
+#include "signupwidget.hxx"
 
 int main( int argc, char *argv[] )
 {

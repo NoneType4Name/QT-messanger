@@ -1,5 +1,4 @@
-#include "signINwidget.h"
-#include "pages.h"
+#include "signINwidget.hxx"
 
 signINWidget::signINWidget( QStackedWidget &screen, QWidget *parent ) :
     screen( screen ), QMainWindow( parent )
@@ -181,5 +180,5 @@ void signINWidget::on_enterButton_clicked()
 
 void signINWidget::on_registrationReferenceButton_clicked()
 {
-    screen.setCurrentIndex( RegisterPage );
+    screen.setCurrentIndex( 0 );
 }

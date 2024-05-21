@@ -1,4 +1,4 @@
-#include "signUPwidget.h"
+#include "signUPwidget.hxx"
 
 signUPwidget::signUPwidget( QStackedWidget &screen, QWidget *parent ) :
     screen( screen ), QMainWindow( parent )
