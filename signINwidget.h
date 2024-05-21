@@ -28,20 +28,20 @@ class signINWidget : public QMainWindow
     QSpacerItem *horizontalSpacer;
     QVBoxLayout *verticalLayout;
     QSpacerItem *verticalSpacer;
-    QLabel *label;
-    QLineEdit *lineEdit_2;
-    QLineEdit *lineEdit;
-    QPushButton *pushButton;
+    QLabel *welcomeLabel;
+    QLineEdit *login;
+    QLineEdit *password;
+    QPushButton *enterButton;
+    QPushButton *registrationReferenceButton;
     QSpacerItem *verticalSpacer_2;
     QSpacerItem *horizontalSpacer_2;
-    QMenuBar *menuBar;
 
   private:
     QStackedWidget &screen;
 
   private slots:
-    void on_pushButton_clicked();
-    void on_goToRegister_clicked();
+    void on_enterButton_clicked();
+    void on_registrationReferenceButton_clicked();
 };
 
 #endif // SIGNINWIDGET_H

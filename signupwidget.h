@@ -27,10 +27,10 @@ class signUPwidget : public QMainWindow
     QSpacerItem *horizontalSpacer;
     QVBoxLayout *verticalLayout;
     QSpacerItem *verticalSpacer;
-    QLabel *label;
-    QLineEdit *lineEdit_2;
-    QLineEdit *lineEdit;
-    QPushButton *pushButton;
+    QLabel *welcomeLabel;
+    QLineEdit *login;
+    QLineEdit *password;
+    QPushButton *enterButton;
     QSpacerItem *verticalSpacer_2;
     QSpacerItem *horizontalSpacer_2;
     QMenuBar *menuBar;
@@ -39,7 +39,7 @@ class signUPwidget : public QMainWindow
     QStackedWidget &screen;
 
   private slots:
-    void on_pushButton_clicked();
+    void on_enterButton_clicked();
 };
 
 #endif // SIGNUPWIDGET_H

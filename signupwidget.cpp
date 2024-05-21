@@ -27,53 +27,53 @@ signUPwidget::signUPwidget( QStackedWidget &screen, QWidget *parent ) :
 
     verticalLayout->addItem( verticalSpacer );
 
-    label = new QLabel( centralwidget );
-    label->setObjectName( "label" );
+    welcomeLabel = new QLabel( centralwidget );
+    welcomeLabel->setObjectName( "welcomeLabel" );
     QSizePolicy sizePolicy1( QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Preferred );
     sizePolicy1.setHorizontalStretch( 0 );
     sizePolicy1.setVerticalStretch( 0 );
-    sizePolicy1.setHeightForWidth( label->sizePolicy().hasHeightForWidth() );
-    label->setSizePolicy( sizePolicy1 );
+    sizePolicy1.setHeightForWidth( welcomeLabel->sizePolicy().hasHeightForWidth() );
+    welcomeLabel->setSizePolicy( sizePolicy1 );
     QFont font;
     font.setFamilies( { QString::fromUtf8( "Cascadia Mono" ) } );
     font.setPointSize( 18 );
-    label->setFont( font );
-    label->setStyleSheet( QString::fromUtf8( "color: rgb(255, 255, 255);\n"
-                                             "background-color: rgba(255, 255, 255, 0);" ) );
-    label->setAlignment( Qt::AlignCenter );
+    welcomeLabel->setFont( font );
+    welcomeLabel->setStyleSheet( QString::fromUtf8( "color: rgb(255, 255, 255);\n"
+                                                    "background-color: rgba(255, 255, 255, 0);" ) );
+    welcomeLabel->setAlignment( Qt::AlignCenter );
 
-    verticalLayout->addWidget( label );
+    verticalLayout->addWidget( welcomeLabel );
 
-    lineEdit_2 = new QLineEdit( centralwidget );
-    lineEdit_2->setObjectName( "lineEdit_2" );
-    lineEdit_2->setStyleSheet( QString::fromUtf8( "QLineEdit\n"
-                                                  "{\n"
-                                                  "	font: 18pt \"Cascadia Mono\";\n"
-                                                  "	color: rgb(255, 255, 255);\n"
-                                                  "	border-radius:10px;\n"
-                                                  "	border: 2px solid rgb(125, 0, 255);\n"
-                                                  "}\n"
-                                                  "\n"
-                                                  "QLineEdit:focus\n"
-                                                  "{\n"
-                                                  "	border-color: rgb(255, 255, 255);\n"
-                                                  "}" ) );
-    lineEdit_2->setMaxLength( 255 );
-    lineEdit_2->setAlignment( Qt::AlignCenter );
+    login = new QLineEdit( centralwidget );
+    login->setObjectName( "login" );
+    login->setStyleSheet( QString::fromUtf8( "QLineEdit\n"
+                                             "{\n"
+                                             "	font: 18pt \"Cascadia Mono\";\n"
+                                             "	color: rgb(255, 255, 255);\n"
+                                             "	border-radius:10px;\n"
+                                             "	border: 2px solid rgb(125, 0, 255);\n"
+                                             "}\n"
+                                             "\n"
+                                             "QLineEdit:focus\n"
+                                             "{\n"
+                                             "	border-color: rgb(255, 255, 255);\n"
+                                             "}" ) );
+    login->setMaxLength( 255 );
+    login->setAlignment( Qt::AlignCenter );
 
-    verticalLayout->addWidget( lineEdit_2 );
+    verticalLayout->addWidget( login );
 
-    lineEdit = new QLineEdit( centralwidget );
-    lineEdit->setObjectName( "lineEdit" );
+    password = new QLineEdit( centralwidget );
+    password->setObjectName( "password" );
     QSizePolicy sizePolicy2( QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Preferred );
     sizePolicy2.setHorizontalStretch( 0 );
     sizePolicy2.setVerticalStretch( 0 );
-    sizePolicy2.setHeightForWidth( lineEdit->sizePolicy().hasHeightForWidth() );
-    lineEdit->setSizePolicy( sizePolicy2 );
-    lineEdit->setTabletTracking( false );
-    lineEdit->setAcceptDrops( false );
-    lineEdit->setAutoFillBackground( false );
-    lineEdit->setStyleSheet( QString::fromUtf8( "QLineEdit\n"
+    sizePolicy2.setHeightForWidth( password->sizePolicy().hasHeightForWidth() );
+    password->setSizePolicy( sizePolicy2 );
+    password->setTabletTracking( false );
+    password->setAcceptDrops( false );
+    password->setAutoFillBackground( false );
+    password->setStyleSheet( QString::fromUtf8( "QLineEdit\n"
                                                 "{\n"
                                                 "	font: 18pt \"Cascadia Mono\";\n"
                                                 "	color: rgb(255, 255, 255);\n"
@@ -85,39 +85,39 @@ signUPwidget::signUPwidget( QStackedWidget &screen, QWidget *parent ) :
                                                 "{\n"
                                                 "	border-color: rgb(255, 255, 255);\n"
                                                 "}" ) );
-    lineEdit->setText( QString::fromUtf8( "" ) );
-    lineEdit->setMaxLength( 255 );
-    lineEdit->setFrame( false );
-    lineEdit->setEchoMode( QLineEdit::Password );
-    lineEdit->setAlignment( Qt::AlignCenter );
-    lineEdit->setClearButtonEnabled( false );
+    password->setText( QString::fromUtf8( "" ) );
+    password->setMaxLength( 255 );
+    password->setFrame( false );
+    password->setEchoMode( QLineEdit::Password );
+    password->setAlignment( Qt::AlignCenter );
+    password->setClearButtonEnabled( false );
 
-    verticalLayout->addWidget( lineEdit );
+    verticalLayout->addWidget( password );
 
-    pushButton = new QPushButton( centralwidget );
-    pushButton->setObjectName( "pushButton" );
-    sizePolicy2.setHeightForWidth( pushButton->sizePolicy().hasHeightForWidth() );
-    pushButton->setSizePolicy( sizePolicy2 );
-    pushButton->setCursor( QCursor( Qt::PointingHandCursor ) );
-    pushButton->setStyleSheet( QString::fromUtf8( "QPushButton{\n"
-                                                  "	background-color: rgb(125, 0, 255);\n"
-                                                  "	font: 18pt \"Cascadia Mono\";\n"
-                                                  "	color: rgb(255, 255, 255);\n"
-                                                  "	border-radius: 10px;\n"
-                                                  "}\n"
-                                                  "\n"
-                                                  "QPushButton:hover, QPushButton:focus\n"
-                                                  "{	\n"
-                                                  "	background-color: rgb(86, 0, 177);\n"
-                                                  "}\n"
-                                                  "\n"
-                                                  "QPushButton:focus\n"
-                                                  "{\n"
-                                                  "	outline: none;\n"
-                                                  "	border: 1px solid rgb(255, 255, 255);\n"
-                                                  "}" ) );
+    enterButton = new QPushButton( centralwidget );
+    enterButton->setObjectName( "pushButton" );
+    sizePolicy2.setHeightForWidth( enterButton->sizePolicy().hasHeightForWidth() );
+    enterButton->setSizePolicy( sizePolicy2 );
+    enterButton->setCursor( QCursor( Qt::PointingHandCursor ) );
+    enterButton->setStyleSheet( QString::fromUtf8( "QPushButton{\n"
+                                                   "	background-color: rgb(125, 0, 255);\n"
+                                                   "	font: 18pt \"Cascadia Mono\";\n"
+                                                   "	color: rgb(255, 255, 255);\n"
+                                                   "	border-radius: 10px;\n"
+                                                   "}\n"
+                                                   "\n"
+                                                   "QPushButton:hover, QPushButton:focus\n"
+                                                   "{	\n"
+                                                   "	background-color: rgb(86, 0, 177);\n"
+                                                   "}\n"
+                                                   "\n"
+                                                   "QPushButton:focus\n"
+                                                   "{\n"
+                                                   "	outline: none;\n"
+                                                   "	border: 1px solid rgb(255, 255, 255);\n"
+                                                   "}" ) );
 
-    verticalLayout->addWidget( pushButton );
+    verticalLayout->addWidget( enterButton );
 
     verticalSpacer_2 = new QSpacerItem( 20, 40, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding );
 
@@ -132,10 +132,10 @@ signUPwidget::signUPwidget( QStackedWidget &screen, QWidget *parent ) :
     verticalLayout_2->addLayout( horizontalLayout );
 
     setWindowTitle( "QT-messanger" );
-    label->setText( "Добро пожаловать!~" );
-    lineEdit_2->setPlaceholderText( "♥ Введите логин" );
-    lineEdit->setPlaceholderText( "Пароль ◕‿◕" );
-    pushButton->setText( "Зарегистрироваться ♥" );
+    welcomeLabel->setText( "Добро пожаловать!~" );
+    login->setPlaceholderText( "♥ Введите логин" );
+    password->setPlaceholderText( "Пароль ◕‿◕" );
+    enterButton->setText( "Зарегистрироваться ♥" );
 
     setCentralWidget( centralwidget );
 
@@ -146,7 +146,7 @@ signUPwidget::~signUPwidget()
 {
 }
 
-void signUPwidget::on_pushButton_clicked()
+void signUPwidget::on_enterButton_clicked()
 {
-    qDebug() << lineEdit_2->text() << "\t" << lineEdit->text() << "\n";
+    qDebug() << login->text() << "\t" << password->text() << "\n";
 }
