@@ -9,8 +9,7 @@
             "stopAtEntry": false,
             "cwd": "${command:cmake.getLaunchTargetDirectory}",
             "environment": [],
-            "console": "integratedTerminal",
-            "visualizerFile": "c:\\Users\\MegaD\\AppData\\Roaming\\Code\\User\\workspaceStorage\\a58d9ca7e2aaf94d457f1bcde5ed2a12\\tonka3000.qtvsctools\\qt.natvis.xml"
+            "console": "integratedTerminal";
         }
     ],
     "version": "2.0.0"
