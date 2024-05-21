@@ -13,8 +13,8 @@ screenWidget::screenWidget( QWidget *parent ) :
     setSizePolicy( sizePolicy );
     setStyleSheet( QString::fromUtf8( "background-color: rgb(0, 0, 0);" ) );
     setWindowTitle( "QT-messanger" );
+    resize( 800, 600 );
     auth = new authWidget( this );
-
     this->addWidget( auth );
 }
 

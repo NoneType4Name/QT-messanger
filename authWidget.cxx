@@ -5,7 +5,6 @@ authWidget::authWidget( screenWidget *screen, QWidget *parent ) :
 {
     if ( objectName().isEmpty() )
         setObjectName( "authWidget" );
-    resize( 800, 600 );
     QSizePolicy sizePolicy( QSizePolicy::Policy::Fixed, QSizePolicy::Policy::Fixed );
     sizePolicy.setHorizontalStretch( 0 );
     sizePolicy.setVerticalStretch( 0 );
@@ -39,8 +38,10 @@ authWidget::authWidget( screenWidget *screen, QWidget *parent ) :
     font.setFamilies( { QString::fromUtf8( "Cascadia Mono" ) } );
     font.setPointSize( 18 );
     label->setFont( font );
-    label->setStyleSheet( QString::fromUtf8( "color: rgb(255, 255, 255);\n"
-                                             "background-color: rgba(255, 255, 255, 0);" ) );
+    label->setStyleSheet( QString::fromUtf8(
+        "color: rgb(255, 255, 255);\n"
+        "background-color: rgba(255, 255, 255, 0);\n"
+        "padding: 5px;" ) );
     label->setAlignment( Qt::AlignCenter );
 
     verticalLayout->addWidget( label );
@@ -53,6 +54,7 @@ authWidget::authWidget( screenWidget *screen, QWidget *parent ) :
                                              "	color: rgb(255, 255, 255);\n"
                                              "	border-radius:10px;\n"
                                              "	border: 2px solid rgb(125, 0, 255);\n"
+                                             "  padding: 5px;\n"
                                              "}\n"
                                              "\n"
                                              "QLineEdit:focus\n"
@@ -66,11 +68,7 @@ authWidget::authWidget( screenWidget *screen, QWidget *parent ) :
 
     password = new QLineEdit( centralwidget );
     password->setObjectName( "password" );
-    QSizePolicy sizePolicy2( QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Preferred );
-    sizePolicy2.setHorizontalStretch( 0 );
-    sizePolicy2.setVerticalStretch( 0 );
-    sizePolicy2.setHeightForWidth( password->sizePolicy().hasHeightForWidth() );
-    password->setSizePolicy( sizePolicy2 );
+    password->setSizePolicy( sizePolicy1 );
     password->setTabletTracking( false );
     password->setAcceptDrops( false );
     password->setAutoFillBackground( false );
@@ -80,6 +78,7 @@ authWidget::authWidget( screenWidget *screen, QWidget *parent ) :
                                                 "	color: rgb(255, 255, 255);\n"
                                                 "	border-radius:10px;\n"
                                                 "	border: 2px solid rgb(125, 0, 255);\n"
+                                                "   padding: 5px;\n"
                                                 "}\n"
                                                 "\n"
                                                 "QLineEdit:focus\n"
@@ -97,14 +96,14 @@ authWidget::authWidget( screenWidget *screen, QWidget *parent ) :
 
     enterButton = new QPushButton( centralwidget );
     enterButton->setObjectName( "enterButton" );
-    sizePolicy2.setHeightForWidth( enterButton->sizePolicy().hasHeightForWidth() );
-    enterButton->setSizePolicy( sizePolicy2 );
+    enterButton->setSizePolicy( sizePolicy1 );
     enterButton->setCursor( QCursor( Qt::PointingHandCursor ) );
     enterButton->setStyleSheet( QString::fromUtf8( "QPushButton{\n"
                                                    "	background-color: rgb(125, 0, 255);\n"
                                                    "	font: 18pt \"Cascadia Mono\";\n"
                                                    "	color: rgb(255, 255, 255);\n"
                                                    "	border-radius: 10px;\n"
+                                                   "    padding: 5px;\n"
                                                    "}\n"
                                                    "\n"
                                                    "QPushButton:hover, QPushButton:focus\n"
@@ -152,7 +151,6 @@ authWidget::authWidget( screenWidget *screen, QWidget *parent ) :
         "color: rgb(125, 0, 255);\n"
         "}\n" ) );
     referenceButton->setCursor( QCursor( Qt::PointingHandCursor ) );
-    // goToRegister->setAlignment( Qt::AlignCenter );
 
     verticalLayout->addWidget( referenceButton );
     login->setPlaceholderText( "♥ Введите логин" );
