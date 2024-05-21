@@ -180,6 +180,5 @@ void signUPwidget::on_enterButton_clicked()
 
 void signUPwidget::on_autorizationReferenceButton_clicked()
 {
-    qDebug() << login->text() << "\t" << password->text() << "\n";
     screen->setCurrentWidget( screen->signIN );
 }
