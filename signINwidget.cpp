@@ -1,8 +1,8 @@
-#include "mainwindow.h"
+#include "signINwidget.h"
 #include "pages.h"
 
-mainWindow::mainWindow( QStackedWidget &sw, QWidget *parent ) :
-    QMainWindow( parent ), sw( sw )
+signINWidget::signINWidget( QStackedWidget &screen, QWidget *parent ) :
+    screen( screen ), QMainWindow( parent )
 {
     if ( objectName().isEmpty() )
         setObjectName( "MainWindow" );
@@ -159,27 +159,27 @@ mainWindow::mainWindow( QStackedWidget &sw, QWidget *parent ) :
 
     goToRegister->setText( "Еще не зарегистрированы?" );
 
-    setCentralWidget( centralwidget );
-
     setWindowTitle( "QT-messanger" );
     label->setText( "С возвращением!~" );
     lineEdit_2->setPlaceholderText( "♥ Введите логин" );
     lineEdit->setPlaceholderText( "Пароль ◕‿◕" );
     pushButton->setText( "Авторизоваться ♥" );
 
+    setCentralWidget( centralwidget );
+
     QMetaObject::connectSlotsByName( this );
 }
 
-mainWindow::~mainWindow()
+signINWidget::~signINWidget()
 {
 }
 
-void mainWindow::on_pushButton_clicked()
+void signINWidget::on_pushButton_clicked()
 {
     qDebug() << lineEdit_2->text() << "\t" << lineEdit->text() << "\n";
 }
 
-void mainWindow::on_goToRegister_clicked()
+void signINWidget::on_goToRegister_clicked()
 {
-    sw.setCurrentIndex( RegisterPage );
+    screen.setCurrentIndex( RegisterPage );
 }

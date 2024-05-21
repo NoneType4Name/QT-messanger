@@ -1,10 +1,10 @@
-#include "registerwindow.h"
+#include "signUPwidget.h"
 
-registerWindow ::registerWindow( QStackedWidget &sw, QWidget *parent ) :
-    QWidget( parent ), sw( sw )
+signUPwidget::signUPwidget( QStackedWidget &screen, QWidget *parent ) :
+    screen( screen ), QMainWindow( parent )
 {
     if ( objectName().isEmpty() )
-        setObjectName( "registerWindow" );
+        setObjectName( "signUPwidget" );
     QSizePolicy sizePolicy( QSizePolicy::Policy::Fixed, QSizePolicy::Policy::Fixed );
     sizePolicy.setHorizontalStretch( 0 );
     sizePolicy.setVerticalStretch( 0 );
@@ -137,14 +137,16 @@ registerWindow ::registerWindow( QStackedWidget &sw, QWidget *parent ) :
     lineEdit->setPlaceholderText( "Пароль ◕‿◕" );
     pushButton->setText( "Зарегистрироваться ♥" );
 
+    setCentralWidget( centralwidget );
+
     QMetaObject::connectSlotsByName( this );
 }
 
-registerWindow ::~registerWindow()
+signUPwidget::~signUPwidget()
 {
 }
 
-void registerWindow ::on_pushButton_clicked()
+void signUPwidget::on_pushButton_clicked()
 {
     qDebug() << lineEdit_2->text() << "\t" << lineEdit->text() << "\n";
 }

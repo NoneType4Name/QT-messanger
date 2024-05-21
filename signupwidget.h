@@ -1,6 +1,6 @@
 #pragma once
-#ifndef REGISTERWINDOW_H
-#    define REGISTERWINDOW_H
+#ifndef SIGNUPWIDGET_H
+#    define SIGNUPWIDGET_H
 #    include <QtCore/QVariant>
 #    include <QtWidgets/QApplication>
 #    include <QtWidgets/QHBoxLayout>
@@ -14,13 +14,13 @@
 #    include <QtWidgets/QWidget>
 #    include <QStackedWidget>
 
-class registerWindow : public QWidget
+class signUPwidget : public QMainWindow
 {
     Q_OBJECT
 
   public:
-    registerWindow( QStackedWidget &sw, QWidget *parent = nullptr );
-    ~registerWindow();
+    signUPwidget( QStackedWidget &screen, QWidget *parent = nullptr );
+    ~signUPwidget();
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout_2;
     QHBoxLayout *horizontalLayout;
@@ -36,10 +36,10 @@ class registerWindow : public QWidget
     QMenuBar *menuBar;
 
   private:
-    QStackedWidget &sw;
+    QStackedWidget &screen;
 
   private slots:
     void on_pushButton_clicked();
 };
 
-#endif // REGISTERWINDOW_H
+#endif // SIGNUPWIDGET_H

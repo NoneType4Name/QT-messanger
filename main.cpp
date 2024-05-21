@@ -1,20 +1,20 @@
-#include "mainwindow.h"
 #include <QApplication>
 #include <QStackedWidget>
-#include "registerWindow.h"
+#include "signINwidget.h"
+#include "signupwidget.h"
 
 int main( int argc, char *argv[] )
 {
     QApplication a( argc, argv );
     QStackedWidget window;
-    auto screen    = new mainWindow( window );
-    auto regWindow = new registerWindow( window );
+    auto signIN = new signINWidget( window );
+    auto signUP = new signUPwidget( window );
 
-    window.addWidget( screen );
-    window.addWidget( regWindow );
+    window.addWidget( signIN );
+    window.addWidget( signUP );
 
     window.setCurrentIndex( 0 );
-    window.showMaximized();
+    window.show();
 
     return a.exec();
 }

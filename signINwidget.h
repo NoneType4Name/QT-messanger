@@ -1,6 +1,6 @@
 #pragma once
-#ifndef MAINWINDOW_H
-#    define MAINWINDOW_H
+#ifndef SIGNINWIDGET_H
+#    define SIGNINWIDGET_H
 #    include <QMainWindow>
 #    include <QtCore/QVariant>
 #    include <QtWidgets/QApplication>
@@ -15,13 +15,13 @@
 #    include <QtWidgets/QWidget>
 #    include <QStackedWidget>
 
-class mainWindow : public QMainWindow
+class signINWidget : public QMainWindow
 {
     Q_OBJECT
 
   public:
-    mainWindow( QStackedWidget &sw, QWidget *parent = nullptr );
-    ~mainWindow();
+    signINWidget( QStackedWidget &screen, QWidget *parent = nullptr );
+    ~signINWidget();
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout_2;
     QHBoxLayout *horizontalLayout;
@@ -37,11 +37,11 @@ class mainWindow : public QMainWindow
     QMenuBar *menuBar;
 
   private:
-    QStackedWidget &sw;
+    QStackedWidget &screen;
 
   private slots:
     void on_pushButton_clicked();
     void on_goToRegister_clicked();
 };
 
-#endif // MAINWINDOW_H
+#endif // SIGNINWIDGET_H
