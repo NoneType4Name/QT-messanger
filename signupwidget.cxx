@@ -1,10 +1,11 @@
 #include "signUPwidget.hxx"
 
-signUPwidget::signUPwidget( QStackedWidget &screen, QWidget *parent ) :
+signUPwidget::signUPwidget( screenWidget *screen, QWidget *parent ) :
     screen( screen ), QMainWindow( parent )
 {
     if ( objectName().isEmpty() )
         setObjectName( "signUPwidget" );
+    resize( 800, 600 );
     QSizePolicy sizePolicy( QSizePolicy::Policy::Fixed, QSizePolicy::Policy::Fixed );
     sizePolicy.setHorizontalStretch( 0 );
     sizePolicy.setVerticalStretch( 0 );
@@ -95,7 +96,7 @@ signUPwidget::signUPwidget( QStackedWidget &screen, QWidget *parent ) :
     verticalLayout->addWidget( password );
 
     enterButton = new QPushButton( centralwidget );
-    enterButton->setObjectName( "pushButton" );
+    enterButton->setObjectName( "enterButton" );
     sizePolicy2.setHeightForWidth( enterButton->sizePolicy().hasHeightForWidth() );
     enterButton->setSizePolicy( sizePolicy2 );
     enterButton->setCursor( QCursor( Qt::PointingHandCursor ) );
@@ -131,11 +132,37 @@ signUPwidget::signUPwidget( QStackedWidget &screen, QWidget *parent ) :
 
     verticalLayout_2->addLayout( horizontalLayout );
 
+    autorizationReferenceButton = new QPushButton( centralwidget );
+    autorizationReferenceButton->setObjectName( "autorizationReferenceButton" );
+    QSizePolicy gtrSizePolicy( QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Preferred );
+    gtrSizePolicy.setHorizontalStretch( 0 );
+    gtrSizePolicy.setVerticalStretch( 0 );
+    gtrSizePolicy.setHeightForWidth( autorizationReferenceButton->sizePolicy().hasHeightForWidth() );
+    autorizationReferenceButton->setSizePolicy( gtrSizePolicy );
+    QFont gtrFont;
+    gtrFont.setFamilies( { QString::fromUtf8( "Cascadia Mono" ) } );
+    gtrFont.setPointSize( 18 );
+    autorizationReferenceButton->setFont( gtrFont );
+    autorizationReferenceButton->setStyleSheet( QString::fromUtf8(
+        "QPushButton{"
+        "color: rgb(255, 255, 255);\n"
+        "background-color: rgba(255, 255, 255, 0);\n"
+        "}\n"
+        "QPushButton:hover{\n"
+        "color: rgb(125, 0, 255);\n"
+        "}\n" ) );
+    autorizationReferenceButton->setCursor( QCursor( Qt::PointingHandCursor ) );
+    // goToRegister->setAlignment( Qt::AlignCenter );
+
+    verticalLayout->addWidget( autorizationReferenceButton );
+
+    autorizationReferenceButton->setText( "Уже есть аккаунт?" );
+
     setWindowTitle( "QT-messanger" );
     welcomeLabel->setText( "Добро пожаловать!~" );
     login->setPlaceholderText( "♥ Введите логин" );
     password->setPlaceholderText( "Пароль ◕‿◕" );
-    enterButton->setText( "Зарегистрироваться ♥" );
+    enterButton->setText( "Зарегестрироваться ♥" );
 
     setCentralWidget( centralwidget );
 
@@ -149,4 +176,10 @@ signUPwidget::~signUPwidget()
 void signUPwidget::on_enterButton_clicked()
 {
     qDebug() << login->text() << "\t" << password->text() << "\n";
+}
+
+void signUPwidget::on_autorizationReferenceButton_clicked()
+{
+    qDebug() << login->text() << "\t" << password->text() << "\n";
+    screen->setCurrentWidget( screen->signIN );
 }

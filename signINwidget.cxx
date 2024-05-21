@@ -1,10 +1,10 @@
 #include "signINwidget.hxx"
 
-signINWidget::signINWidget( QStackedWidget &screen, QWidget *parent ) :
+signINWidget::signINWidget( screenWidget *screen, QWidget *parent ) :
     screen( screen ), QMainWindow( parent )
 {
     if ( objectName().isEmpty() )
-        setObjectName( "MainWindow" );
+        setObjectName( "signINwidget" );
     resize( 800, 600 );
     QSizePolicy sizePolicy( QSizePolicy::Policy::Fixed, QSizePolicy::Policy::Fixed );
     sizePolicy.setHorizontalStretch( 0 );
@@ -96,7 +96,7 @@ signINWidget::signINWidget( QStackedWidget &screen, QWidget *parent ) :
     verticalLayout->addWidget( password );
 
     enterButton = new QPushButton( centralwidget );
-    enterButton->setObjectName( "pushButton" );
+    enterButton->setObjectName( "enterButton" );
     sizePolicy2.setHeightForWidth( enterButton->sizePolicy().hasHeightForWidth() );
     enterButton->setSizePolicy( sizePolicy2 );
     enterButton->setCursor( QCursor( Qt::PointingHandCursor ) );
@@ -180,5 +180,5 @@ void signINWidget::on_enterButton_clicked()
 
 void signINWidget::on_registrationReferenceButton_clicked()
 {
-    screen.setCurrentIndex( 0 );
+    screen->setCurrentWidget( screen->signUP );
 }

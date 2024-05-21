@@ -18,6 +18,8 @@ set(PROJECT_SOURCES
     signINWidget.hxx
     signUPwidget.cxx
     signUPwidget.hxx
+    screenWidget.cxx
+    screenWidget.hxx
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

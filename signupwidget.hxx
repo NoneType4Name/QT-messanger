@@ -13,13 +13,14 @@
 #    include <QtWidgets/QVBoxLayout>
 #    include <QtWidgets/QWidget>
 #    include <QStackedWidget>
+#    include "screenWidget.hxx"
 
 class signUPwidget : public QMainWindow
 {
     Q_OBJECT
 
   public:
-    signUPwidget( QStackedWidget &screen, QWidget *parent = nullptr );
+    signUPwidget( screenWidget *screen, QWidget *parent = nullptr );
     ~signUPwidget();
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout_2;
@@ -31,15 +32,15 @@ class signUPwidget : public QMainWindow
     QLineEdit *login;
     QLineEdit *password;
     QPushButton *enterButton;
+    QPushButton *autorizationReferenceButton;
     QSpacerItem *verticalSpacer_2;
     QSpacerItem *horizontalSpacer_2;
     QMenuBar *menuBar;
-
-  private:
-    QStackedWidget &screen;
+    screenWidget *screen;
 
   private slots:
     void on_enterButton_clicked();
+    void on_autorizationReferenceButton_clicked();
 };
 
 #endif // SIGNUPWIDGET_H

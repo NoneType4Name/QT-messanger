@@ -14,13 +14,14 @@
 #    include <QtWidgets/QVBoxLayout>
 #    include <QtWidgets/QWidget>
 #    include <QStackedWidget>
+#    include "screenWidget.hxx"
 
 class signINWidget : public QMainWindow
 {
     Q_OBJECT
 
   public:
-    signINWidget( QStackedWidget &screen, QWidget *parent = nullptr );
+    signINWidget( screenWidget *screen, QWidget *parent = nullptr );
     ~signINWidget();
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout_2;
@@ -37,7 +38,7 @@ class signINWidget : public QMainWindow
     QSpacerItem *horizontalSpacer_2;
 
   private:
-    QStackedWidget &screen;
+    screenWidget *screen;
 
   private slots:
     void on_enterButton_clicked();
