@@ -1,7 +1,6 @@
 #pragma once
-#ifndef MAINWINDOW_H
-#    define MAINWINDOW_H
-#    include <QMainWindow>
+#ifndef SIGNUPWIDGET_H
+#    define SIGNUPWIDGET_H
 #    include <QtCore/QVariant>
 #    include <QtWidgets/QApplication>
 #    include <QtWidgets/QHBoxLayout>
@@ -13,14 +12,16 @@
 #    include <QtWidgets/QSpacerItem>
 #    include <QtWidgets/QVBoxLayout>
 #    include <QtWidgets/QWidget>
+#    include <QStackedWidget>
+#    include "screenWidget.hxx"
 
-class mainWindow : public QMainWindow
+class authWidget : public QMainWindow
 {
     Q_OBJECT
 
   public:
-    mainWindow( QWidget *parent = nullptr );
-    ~mainWindow();
+    authWidget( screenWidget *screen, QWidget *parent = nullptr );
+    ~authWidget();
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout_2;
     QHBoxLayout *horizontalLayout;
@@ -28,15 +29,21 @@ class mainWindow : public QMainWindow
     QVBoxLayout *verticalLayout;
     QSpacerItem *verticalSpacer;
     QLabel *label;
-    QLineEdit *lineEdit_2;
-    QLineEdit *lineEdit;
-    QPushButton *pushButton;
+    QLineEdit *login;
+    QLineEdit *password;
+    QPushButton *enterButton;
+    QPushButton *referenceButton;
     QSpacerItem *verticalSpacer_2;
     QSpacerItem *horizontalSpacer_2;
-    QMenuBar *menuBar;
+    screenWidget *screen;
+    bool registration;
 
   private slots:
-    void on_pushButton_clicked();
+    void on_enterButton_clicked();
+    void on_referenceButton_clicked();
+
+  private:
+    void reference();
 };
 
-#endif // MAINWINDOW_H
+#endif // AUTHWIDGET_H
