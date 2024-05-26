@@ -1,7 +1,8 @@
 #include "authWidget.hxx"
 
-authWidget::authWidget( screenWidget *screen, QWidget *parent ) :
-    screen( screen ), QMainWindow( parent )
+authWidget::authWidget( QStackedWidget *screen, QWidget *parent ) :
+    screen( screen ),
+    QMainWindow( parent )
 {
     if ( objectName().isEmpty() )
         setObjectName( "authWidget" );

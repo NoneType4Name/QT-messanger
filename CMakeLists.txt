@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.12)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 project(main VERSION 0.1 LANGUAGES CXX)
 
@@ -18,6 +18,12 @@ set(PROJECT_SOURCES
     screenWidget.cxx
     authWidget.cxx
     authWidget.hxx
+    mainWidget/mainWidget.hxx
+    mainWidget/mainWidget.cxx
+    mainWidget/dialogsPreviews.hxx
+    mainWidget/dialogsPreviews.cxx
+    mainWidget/dialogMessages.hxx
+    mainWidget/dialogMessages.cxx
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

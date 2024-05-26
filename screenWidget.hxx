@@ -13,6 +13,8 @@
 #    include <QtWidgets/QVBoxLayout>
 #    include <QtWidgets/QWidget>
 #    include <QStackedWidget>
+#    include "authWidget.hxx"
+#    include "mainWidget/mainWidget.hxx"
 
 class screenWidget : public QStackedWidget
 {
@@ -21,7 +23,8 @@ class screenWidget : public QStackedWidget
   public:
     screenWidget( QWidget *parent = nullptr );
     ~screenWidget();
-    QMainWindow *auth;
+    authWidget *auth;
+    mainWidget *mainWidget;
 };
 
 #endif

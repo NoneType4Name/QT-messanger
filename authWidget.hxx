@@ -13,14 +13,13 @@
 #    include <QtWidgets/QVBoxLayout>
 #    include <QtWidgets/QWidget>
 #    include <QStackedWidget>
-#    include "screenWidget.hxx"
 
 class authWidget : public QMainWindow
 {
     Q_OBJECT
 
   public:
-    authWidget( screenWidget *screen, QWidget *parent = nullptr );
+    authWidget( QStackedWidget *screen, QWidget *parent = nullptr );
     ~authWidget();
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout_2;
@@ -35,7 +34,7 @@ class authWidget : public QMainWindow
     QPushButton *referenceButton;
     QSpacerItem *verticalSpacer_2;
     QSpacerItem *horizontalSpacer_2;
-    screenWidget *screen;
+    QStackedWidget *screen;
     bool registration;
 
   private slots:
