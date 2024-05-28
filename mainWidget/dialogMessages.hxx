@@ -44,13 +44,18 @@ class dialogMessageWidget : public QWidget
 
   public:
     ~dialogMessageWidget();
-    QHBoxLayout *horizontalLayout;
-    QVBoxLayout *autor;
+    QHBoxLayout *centralWidgetHorizontalLayout;
+    QWidget *authorWidget;
+    QVBoxLayout *author;
     QSpacerItem *verticalSpacer;
     QLabel *icon;
+    QWidget *messageBoxWidget;
+    QHBoxLayout *messageBox;
+    QWidget *messageWidget;
     QVBoxLayout *message;
     std::vector<QLabel *> texts;
     QLabel *data;
+    QSpacerItem *horizontalSpacer;
 };
 
 class dialogMessageWidgetTextLabel : public QLabel
