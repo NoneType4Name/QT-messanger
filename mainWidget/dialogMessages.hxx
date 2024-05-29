@@ -40,7 +40,7 @@ class dialogMessageWidget : public QWidget
   private:
     friend mainWidget;
     friend dialogMessages;
-    dialogMessageWidget( QTableWidget *parent, std::string message, std::string time, bool client );
+    dialogMessageWidget( QWidget *parent, std::string message, std::string time, bool client );
 
   public:
     ~dialogMessageWidget();
@@ -58,12 +58,12 @@ class dialogMessageWidget : public QWidget
     QSpacerItem *horizontalSpacer;
 };
 
-class dialogMessageWidgetTextLabel : public QLabel
+class dialogMessageBoxWidget : public QWidget
 {
     Q_OBJECT
   public:
-    dialogMessageWidgetTextLabel( QWidget *parent );
-    ~dialogMessageWidgetTextLabel();
+    dialogMessageBoxWidget( QWidget *parent );
+    ~dialogMessageBoxWidget();
 
   private:
     void resizeEvent( QResizeEvent *event ) override;
