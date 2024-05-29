@@ -53,7 +53,7 @@ class dialogMessageWidget : public QWidget
     QHBoxLayout *messageBox;
     QWidget *messageWidget;
     QVBoxLayout *message;
-    std::vector<QLabel *> texts;
+    QLabel *text;
     QLabel *data;
     QSpacerItem *horizontalSpacer;
 };

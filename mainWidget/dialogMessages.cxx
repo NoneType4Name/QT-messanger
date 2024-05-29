@@ -151,12 +151,12 @@ dialogMessageWidget::dialogMessageWidget( QWidget *parent, std::string text, std
     icon->setMaximumSize( QSize( 33, 33 ) );
     icon->setStyleSheet( QString::fromUtf8( "background-color: rgba(0, 0, 0, 0);" ) );
     icon->setAlignment( Qt::AlignCenter );
+    icon->setCursor( QCursor( Qt::PointingHandCursor ) );
     author->addWidget( icon );
 
     messageBoxWidget = new dialogMessageBoxWidget( this );
     messageBoxWidget->setObjectName( "messageBoxWidget" );
     messageBoxWidget->setSizePolicy( sizePolicy2 );
-    // messageBoxWidget->setStyleSheet( QString::fromUtf8( "background-color: rgba(0, 0, 0, 0);" ) );
     messageBox = new QHBoxLayout( messageBoxWidget );
     messageBox->setSpacing( 0 );
     messageBox->setObjectName( "messageBox" );
@@ -164,26 +164,17 @@ dialogMessageWidget::dialogMessageWidget( QWidget *parent, std::string text, std
     messageWidget = new QWidget( messageBoxWidget );
     messageWidget->setObjectName( "messageWidget" );
     messageWidget->setSizePolicy( sizePolicy2 );
-    // messageWidget->setStyleSheet( QString::fromUtf8( "background-color: rgba(0, 0, 0, 0);" ) );
     message = new QVBoxLayout( messageWidget );
     message->setSpacing( 0 );
     message->setObjectName( "message" );
     message->setContentsMargins( 0, 0, 0, 0 );
-    // message->addItem( new QSpacerItem( 40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum ) );
 
-    std::stringstream ss( text );
-    std::string token;
-    size_t i { 0 };
-    while ( std::getline( ss, token, '\n' ) )
-    {
-        texts.emplace_back( new QLabel( messageWidget ) );
-        texts.back()->setObjectName( std::string( "text" ) + std::to_string( i ) );
-        texts.back()->setCursor( QCursor( Qt::IBeamCursor ) );
-        texts.back()->setTextInteractionFlags( Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard );
-        texts.back()->setSizePolicy( sizePolicy2 );
-        if ( !i )
-        {
-            texts.back()->setStyleSheet( QString::fromUtf8( "QLabel{\
+    this->text = new QLabel( messageWidget );
+    this->text->setObjectName( "text" );
+    this->text->setCursor( QCursor( Qt::IBeamCursor ) );
+    this->text->setTextInteractionFlags( Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard );
+    this->text->setSizePolicy( sizePolicy2 );
+    this->text->setStyleSheet( QString::fromUtf8( "QLabel{\
 background-color: rgb(44, 0, 75);\
 padding:5px;\
 padding-bottom: 0px;\
@@ -191,21 +182,10 @@ border-top-right-radius:10px;\
 border-top-left-radius:10px;\
 border-bottom-right-radius:0px;\
 border-bottom-left-radius:0px;}" ) );
-        }
-        else
-        {
-            texts.back()->setStyleSheet( QString::fromUtf8( "QLabel{\
-background-color: rgb(44, 0, 75);\
-padding:5px;\
-padding-bottom: 0px;\
-padding-top: 0px;}" ) );
-        }
-        texts.back()->setWordWrap( false );
-        texts.back()->setAlignment( ( i > 0 ? Qt::AlignVCenter : Qt::AlignBottom ) | Qt::AlignLeading | ( client ? Qt::AlignRight : Qt::AlignLeft ) );
-        texts.back()->setText( token.c_str() );
-        message->addWidget( texts.back() );
-        ++i;
-    }
+    this->text->setWordWrap( false );
+    this->text->setAlignment( Qt::AlignBottom | Qt::AlignLeading | ( client ? Qt::AlignRight : Qt::AlignLeft ) );
+    this->text->setText( text.c_str() );
+    message->addWidget( this->text );
 
     data = new QLabel( messageWidget );
     data->setObjectName( "data" );
@@ -213,7 +193,7 @@ padding-top: 0px;}" ) );
     data->setMinimumSize( QSize( 0, 24 ) );
     data->setMaximumSize( QSize( 16777215, 24 ) );
     data->setAlignment( Qt::AlignRight | Qt::AlignTrailing | Qt::AlignVCenter );
-    data->setStyleSheet( QString::fromUtf8( std::string( "background-color:rgb(44,110,75);padding:0px;padding-right:1px;" ) + ( client ? "border-bottom-left-radius:10px;" : "border-bottom-right-radius:10px;" ) ) );
+    data->setStyleSheet( QString::fromUtf8( std::string( "background-color:rgb(44,0,75);padding:0px;padding-right:1px;" ) + ( client ? "border-bottom-left-radius:10px;" : "border-bottom-right-radius:10px;" ) ) );
     data->setText( time.c_str() );
     message->addWidget( data );
 
@@ -271,11 +251,4 @@ void dialogMessageBoxWidget::resizeEvent( QResizeEvent *event )
         }
     }
     QWidget::resizeEvent( event );
-    // if ( fontMetrics().boundingRect( text() ).width() > height() )
-    //     QLabel::resizeEvent( event );
-    // {
-    //     resize( parentWidget()->parentWidget()->width(), height() );
-    //     // parentWidget()->layout().size
-    //     setWordWrap( true );
-    // }
 }
