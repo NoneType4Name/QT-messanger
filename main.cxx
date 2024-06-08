@@ -1,6 +1,10 @@
 #include <QApplication>
 #include <QStackedWidget>
 #include "screenWidget.hxx"
+#include <boost/asio.hpp>
+
+boost::asio::io_context io;
+boost::asio::ip::tcp::resolver resolver { io };
 
 int main( int argc, char *argv[] )
 {

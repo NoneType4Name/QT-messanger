@@ -20,6 +20,7 @@ class dialogMessages : public QWidget
   private:
     friend mainWidget;
     dialogMessages( mainWidget *parent );
+    std::unordered_map<uint64_t, dialogMessageWidget *> _messagesTable;
 
   public:
     ~dialogMessages();
@@ -40,10 +41,6 @@ class dialogMessageWidget : public QWidget
   private:
     friend mainWidget;
     friend dialogMessages;
-    dialogMessageWidget( QWidget *parent, std::string message, std::string time, bool client );
-
-  public:
-    ~dialogMessageWidget();
     QHBoxLayout *centralWidgetHorizontalLayout;
     QWidget *authorWidget;
     QVBoxLayout *author;
@@ -56,6 +53,10 @@ class dialogMessageWidget : public QWidget
     QLabel *text;
     QLabel *data;
     QSpacerItem *horizontalSpacer;
+    dialogMessageWidget( QWidget *parent, std::string message, std::string time, bool client );
+
+  public:
+    ~dialogMessageWidget();
 };
 
 class dialogMessageBoxWidget : public QWidget
