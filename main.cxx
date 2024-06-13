@@ -1,13 +1,37 @@
 #include <QApplication>
 #include <QStackedWidget>
+#include <QDebug>
 #include "screenWidget.hxx"
+#include "webSocket.hxx"
 #include <boost/asio.hpp>
+#include <boost/asio/use_awaitable.hpp>
 
-boost::asio::io_context io;
-boost::asio::ip::tcp::resolver resolver { io };
+namespace
+{
+    boost::asio::io_context io {};
+    clientSocket sock { io };
+    struct _
+    {
+        _()
+        {
+        }
+        ~_()
+        {
+            sock.close();
+        }
+    } _;
+} // namespace
 
 int main( int argc, char *argv[] )
 {
+    sock.connect( "127.0.0.1", "1023" );
+    io.run();
+    // sock.write( "data" );
+    // io.run();
+    // boost::asio::streambuf buff;
+    // sock.readCall( buff, []( boost::system::error_code error, std::size_t size, boost::asio::streambuf *b )
+    //                { qDebug() << b << size;} );
+    // io.run();
     QApplication app( argc, argv );
     screenWidget window;
 
