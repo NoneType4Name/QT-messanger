@@ -14,16 +14,17 @@ class clientSocket
     boost::asio::io_context &io_context;
     boost::asio::ip::tcp::resolver resolver;
     boost::asio::ip::tcp::socket handle;
-    clientSocket( boost::asio::io_context &io_context ) :
+    clientSocket( boost::asio::io_context &io_context, std::string host, std::string port ) :
         io_context( io_context ),
         resolver( io_context ),
         handle( io_context )
     {
+        boost::asio::connect( handle, resolver.resolve( host, port ) );
     }
 
-    void connect( std::string host, std::string port )
+    ~clientSocket()
     {
-        resolver.async_resolve( host, port, std::bind( &clientSocket::on_connect, this, boost::asio::placeholders::error, boost::asio::placeholders::results ) );
+        close();
     }
 
     void write( std::string data )
