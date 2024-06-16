@@ -2,17 +2,15 @@
 #include <QStackedWidget>
 #include <QDebug>
 #include "screenWidget.hxx"
-// #include "webSocket.hxx"
 #include <boost/asio.hpp>
+#include <boost/beast.hpp>
 #include <boost/asio/use_awaitable.hpp>
-#include <future>
 
 namespace
 {
     boost::asio::io_context io;
-    boost::asio::ip::tcp::socket sock( io );
     boost::asio::ip::tcp::resolver resolver( io );
-    // clientSocket sock { io, "127.0.0.1", "1023" };
+    boost::beast::websocket::stream<boost::asio::ip::tcp::socket> websock( io );
     struct _
     {
         _()
@@ -20,19 +18,20 @@ namespace
         }
         ~_()
         {
-            sock.close();
+            websock.close( boost::beast::websocket::close_code::normal );
         }
     } _;
 } // namespace
 
 int main( int argc, char *argv[] )
 {
-    std::array<char, 10> data( { 'd', 'a', 't', 'a', 0, 0, 0, 0, 0, 0 } );
     QApplication app( argc, argv );
     screenWidget window;
-    sock.connect( resolver.resolve( "127.0.0.1", "1023" )->endpoint() );
-    sock.write_some( boost::asio::buffer( data ) );
-    auto readed = sock.async_read_some( boost::asio::buffer( data ), boost::asio::use_future );
+    boost::asio::connect( websock.next_layer(), resolver.resolve( "localhost", "8080" ) );
+    websock.handshake( "localhost:8080", "/" );
+    websock.write( boost::asio::buffer( std::string( "{\"request\": \"connect\", \"user\": {\"id\": 1}}" ) ) );
+    boost::beast::flat_buffer buffer;
+    auto readed { websock.async_read( buffer, boost::asio::use_future ) };
     io.run();
     window.setCurrentWidget( window.mainWidget );
     window.mainWidget->previews->createPreviewDown( "NoneType4Name.", "std::string lastMessage", "16.05" );
@@ -41,7 +40,6 @@ int main( int argc, char *argv[] )
     window.mainWidget->messages->createMessageDown( "Я всю твою семью вырежу, а потом и к тебе вернусь!!!\nСмартфон vivo", "15:30", 0 );
     window.show();
     readed.get();
-    qDebug() << data.data() << '\n';
 
     return app.exec();
 }
