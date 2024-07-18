@@ -29,7 +29,7 @@ int main( int argc, char *argv[] )
     screenWidget window;
     boost::asio::connect( websock.next_layer(), resolver.resolve( "localhost", "8080" ) );
     websock.handshake( "localhost:8080", "/" );
-    websock.write( boost::asio::buffer( std::string( "{\"request\": \"connect\", \"user\": {\"id\": 1}}" ) ) );
+    websock.write( boost::asio::buffer( std::string( R"({"request": "connect", "user": {"id": 1}})" ) ) );
     boost::beast::flat_buffer buffer;
     auto readed { websock.async_read( buffer, boost::asio::use_future ) };
     io.run();
@@ -39,7 +39,7 @@ int main( int argc, char *argv[] )
     window.mainWidget->messages->createMessageDown( "Привет!.", "15:30", 1 );
     window.mainWidget->messages->createMessageDown( "Я всю твою семью вырежу, а потом и к тебе вернусь!!!\nСмартфон vivo", "15:30", 0 );
     window.show();
-    readed.get();
+    // readed.get();
 
     return app.exec();
 }
