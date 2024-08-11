@@ -170,13 +170,13 @@ void authWidget::reference()
 {
     if ( registration )
     {
-        label->setText( "Добро пожаловать!~" );
+        label->setText( "Регистрация\n\nДобро пожаловать!~" );
         enterButton->setText( "Зарегестрироваться ♥" );
         referenceButton->setText( "Уже есть аккаунт?" );
     }
     else
     {
-        label->setText( "С возвращением!~" );
+        label->setText( "Вход\n\nС возвращением!~" );
         enterButton->setText( "Авторизоваться ♥" );
         referenceButton->setText( "Ещё нет аккаунта?" );
     }

@@ -1,7 +1,7 @@
 {
     "clangd.arguments": [
         "--compile-commands-dir=./build",
-        "-header-insertion=never"
+        // "-header-insertion=never"
     ],
     "lldb.displayFormat": "auto",
     "lldb.showDisassembly": "never",

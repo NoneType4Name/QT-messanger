@@ -1,5 +1,4 @@
 #include "dialogMessages.hxx"
-#include <sstream>
 #include <QDebug>
 
 dialogMessages::dialogMessages( mainWidget *parent ) :

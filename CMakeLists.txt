@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.12)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 project(
-  Messenger
+  messenger
   VERSION 1.0
   LANGUAGES CXX)
 
@@ -30,11 +30,18 @@ find_package(Boost REQUIRED COMPONENTS json)
 
 set(PROJECT_SOURCES
     main.cxx
-    # screenWidget.hxx screenWidget.cxx authWidget.cxx authWidget.hxx
-    # mainWidget/mainWidget.hxx mainWidget/mainWidget.cxx
-    # mainWidget/dialogsPreviews.hxx mainWidget/dialogsPreviews.cxx
-    # mainWidget/dialogMessages.hxx mainWidget/dialogMessages.cxx
-)
+    messenger.hxx
+    messenger.cxx
+    screenWidget.hxx
+    screenWidget.cxx
+    authWidget.cxx
+    authWidget.hxx
+    mainWidget/mainWidget.hxx
+    mainWidget/mainWidget.cxx
+    mainWidget/dialogsPreviews.hxx
+    mainWidget/dialogsPreviews.cxx
+    mainWidget/dialogMessages.hxx
+    mainWidget/dialogMessages.cxx)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
   qt_add_executable(${PROJECT_NAME} MANUAL_FINALIZATION ${PROJECT_SOURCES})

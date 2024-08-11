@@ -23,6 +23,7 @@ class screenWidget : public QStackedWidget
   public:
     screenWidget( QWidget *parent = nullptr );
     ~screenWidget();
+    void init();
     authWidget *auth;
     mainWidget *mainWidget;
 };
