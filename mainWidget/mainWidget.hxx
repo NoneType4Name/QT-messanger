@@ -22,12 +22,12 @@ class mainWidget : public QMainWindow
     Q_OBJECT
 
   public:
-    mainWidget( QStackedWidget *screen, QMainWindow *parent = nullptr );
+    mainWidget( class screenWidget *screen, QMainWindow *parent = nullptr );
     ~mainWidget();
     QWidget *centralwidget;
     QHBoxLayout *mainLayout;
     QSplitter *splitter;
-    QStackedWidget *screen;
+    screenWidget *screen;
     class dialogsPreviews *previews;
     class dialogMessages *messages;
 };

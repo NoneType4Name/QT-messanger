@@ -1,7 +1,6 @@
 #include "messenger.hxx"
 #include <qlogging.h>
 #include "screenWidget.hxx"
-#include <future>
 
 screenWidget::screenWidget( QWidget *parent ) :
     QStackedWidget( parent )
@@ -18,46 +17,49 @@ screenWidget::screenWidget( QWidget *parent ) :
     resize( 800, 600 );
     this->addWidget( auth = new authWidget( this ) );
     this->addWidget( this->mainWidget = new class mainWidget( this ) );
+    show();
     init();
 }
 
 screenWidget::~screenWidget()
 {
+    // if ( auth_thread )
+    //     auth_thread->join();
+    // delete auth_thread;
 }
 
 void screenWidget::init()
 {
-    auth->registration = !messenger::configsPath.exists( "user.json" );
-    while ( 1 )
+    if ( !messenger::configsPath.exists( "user.json" ) )
     {
-        if ( auth->registration )
-        {
-            setCurrentWidget( auth );
-        }
-        auto f { std::async( &messenger::signIn ) };
-        uint32_t c { 0 };
-        while ( f.wait_for( std::chrono::seconds( 0 ) ) != std::future_status::ready )
-        {
-            ++c;
-            if ( !( c ) )
-            {
-                auth->enterButton->setText( "." );
-            }
-            else if ( !( c % 900 ) )
-                c = 0;
-            else if ( c % 100 == 3 || c % 100 == 6 )
-                auth->enterButton->setText( auth->enterButton->text() + "." );
-        }
-        auto data { f.get() };
-        if ( !data )
+        // if ( auth_thread )
+        // {
+        //     auth_thread->join();
+        //     delete auth_thread;
+        // }
+        setCurrentWidget( auth );
+        auth->auth();
+        // thread.detach();
+    }
+    else
+    {
+        auto d { messenger::signIn() };
+        // auto f { std::async( &messenger::signIn ) };
+        // while ( f.wait_for( std::chrono::seconds( 0 ) ) != std::future_status::ready )
+        // {
+        // }
+        // auto d { f.get() };
+        if ( d == messenger::signInErrorCodes::Ok )
         {
             setCurrentWidget( mainWidget );
-            return;
+            // mainWidget->reload();
         }
         else
         {
-            qDebug() << "Error SignIn: " << data << '\n';
-            auth->registration = 1;
+            if ( d == messenger::signInErrorCodes::WrongData || d == messenger::signInErrorCodes::EmptyData )
+                messenger::configsPath.remove( "user.json" );
+            setCurrentWidget( auth );
+            // failed to login
         }
     }
 }

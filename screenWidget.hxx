@@ -26,6 +26,7 @@ class screenWidget : public QStackedWidget
     void init();
     authWidget *auth;
     mainWidget *mainWidget;
+    // std::thread *auth_thread { nullptr };
 };
 
 #endif

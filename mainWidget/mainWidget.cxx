@@ -1,6 +1,7 @@
 #include "mainWidget.hxx"
+#include "../screenWidget.hxx"
 
-mainWidget::mainWidget( QStackedWidget *screen, QMainWindow *parent ) :
+mainWidget::mainWidget( screenWidget *screen, QMainWindow *parent ) :
     screen( screen ),
     QMainWindow( parent )
 {

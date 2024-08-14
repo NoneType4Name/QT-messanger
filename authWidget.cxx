@@ -1,6 +1,13 @@
 #include "authWidget.hxx"
+#include "messenger.hxx"
+#include "screenWidget.hxx"
+#include <boost/json/object.hpp>
+#include <boost/json/serialize.hpp>
+#include <QMetaObject>
+#include <qcontainerfwd.h>
+#include <qdir.h>
 
-authWidget::authWidget( QStackedWidget *screen, QWidget *parent ) :
+authWidget::authWidget( screenWidget *screen, QWidget *parent ) :
     screen( screen ),
     QMainWindow( parent )
 {
@@ -156,7 +163,7 @@ authWidget::authWidget( QStackedWidget *screen, QWidget *parent ) :
     verticalLayout->addWidget( referenceButton );
     login->setPlaceholderText( "♥ Введите логин" );
     password->setPlaceholderText( "Пароль ◕‿◕" );
-    reference();
+    restore();
     setCentralWidget( centralwidget );
 
     QMetaObject::connectSlotsByName( this );
@@ -164,9 +171,43 @@ authWidget::authWidget( QStackedWidget *screen, QWidget *parent ) :
 
 authWidget::~authWidget()
 {
+    // if ( screen->auth_thread )
+    //     screen->auth_thread->join();
 }
 
-void authWidget::reference()
+void authWidget::auth()
+{
+    // auto f { std::async( &messenger::signIn ) };
+    // uint32_t c { 0 };
+    // QMetaObject::invokeMethod( this, "updateLoadText", Qt::QueuedConnection, Q_ARG( QString, "." ) );
+    // while ( f.wait_for( std::chrono::seconds( 0 ) ) != std::future_status::ready )
+    // {
+    //     ++c;
+    //     if ( !( c % 900 ) )
+    //     {
+    //         QMetaObject::invokeMethod( this, "updateLoadText", Qt::QueuedConnection, Q_ARG( QString, "." ) );
+    //         c = 0;
+    //     }
+    //     else if ( c == 300 )
+    //         QMetaObject::invokeMethod( this, "updateLoadText", Qt::QueuedConnection, Q_ARG( QString, ".." ) );
+    //     else if ( c == 600 )
+    //         QMetaObject::invokeMethod( this, "updateLoadText", Qt::QueuedConnection, Q_ARG( QString, "..." ) );
+    // }
+    auto data { messenger::signIn() };
+    if ( data == messenger::signInErrorCodes::Ok )
+    {
+        screen->setCurrentWidget( screen->mainWidget );
+        // mainWidget->reload();
+    }
+    else
+    {
+        qDebug() << "Error SignIn: " << static_cast<int>( data ) << '\n';
+        registration = 1;
+    }
+    // screen->auth_thread = nullptr;
+}
+
+void authWidget::restore()
 {
     if ( registration )
     {
@@ -182,16 +223,35 @@ void authWidget::reference()
     }
 }
 
+void authWidget::saveLoginData()
+{
+    QFile file { messenger::configsPath.absoluteFilePath( "user.json" ) };
+    file.open( QIODevice::WriteOnly | QIODevice::Text );
+    boost::json::object f = { { "login", login->text().toStdString() }, { "password", password->text().toStdString() } };
+    file.write( boost::json::serialize( f ).data() );
+    file.close();
+}
+
 void authWidget::on_enterButton_clicked()
 {
     if ( registration )
-        qDebug() << login->text() << "\t" << password->text() << "\n";
-    else
-        qDebug() << login->text() << "\t" << password->text() << "\n";
+        saveLoginData();
+    // if ( screen->auth_thread )
+    // {
+    //     screen->auth_thread->join();
+    //     delete screen->auth_thread;
+    // }
+    // screen->auth_thread = new std::thread { [ & ]()
+    screen->auth->auth();
 }
 
 void authWidget::on_referenceButton_clicked()
 {
     registration = !registration;
-    reference();
+    restore();
 }
+
+// void authWidget::updateLoadText( QString s )
+// {
+//     enterButton->setText( s );
+// }

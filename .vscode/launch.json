@@ -2,15 +2,15 @@
     "configurations": [
         {
             "name": "Debug",
-            "type": "cppdbg",
+            "type": "lldb",
             "request": "launch",
             "program": "${command:cmake.launchTargetPath}",
             "args": [],
             "cwd": "${command:cmake.getLaunchTargetDirectory}",
-            "externalConsole": false,
-            "MIMode": "gdb",
-            "miDebuggerPath": "gdb",
-            // "console": "integratedTerminal"
+            // "externalConsole": false,
+            // "MIMode": "gdb",
+            // "miDebuggerPath": "gdb",
+            "console": "integratedTerminal"
         }
     ],
     "version": "2.0.0"

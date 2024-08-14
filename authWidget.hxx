@@ -19,7 +19,7 @@ class authWidget : public QMainWindow
     Q_OBJECT
 
   public:
-    authWidget( QStackedWidget *screen, QWidget *parent = nullptr );
+    authWidget( class screenWidget *screen, QWidget *parent = nullptr );
     ~authWidget();
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout_2;
@@ -34,15 +34,18 @@ class authWidget : public QMainWindow
     QPushButton *referenceButton;
     QSpacerItem *verticalSpacer_2;
     QSpacerItem *horizontalSpacer_2;
-    QStackedWidget *screen;
+    screenWidget *screen;
     bool registration;
+    void auth();
 
   private slots:
     void on_enterButton_clicked();
     void on_referenceButton_clicked();
+    // void updateLoadText( QString s );
 
   private:
-    void reference();
+    void saveLoginData();
+    void restore();
 };
 
 #endif // AUTHWIDGET_H
