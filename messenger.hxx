@@ -13,10 +13,12 @@ namespace messenger
         ServerError,
         WrongData,
         TooManyTries,
-        TimeOut,
+        AuthTimeOut,
+        WrongAuthData,
+        WrongAuthLogin,
         EmptyData,
+        TimeOut,
     };
-
     enum struct serverAnswers
     {
         Ok = 0,
@@ -25,6 +27,7 @@ namespace messenger
         TooManyTries,
         AuthTimeOut,
         WrongAuthData,
+        WrongAuthLogin,
     };
 
     extern QDir configsPath;
@@ -37,5 +40,6 @@ namespace messenger
         boost::asio::ip::tcp::resolver resolver { io };
     } websocket;
     signInErrorCodes signIn();
+    signInErrorCodes signUp( std::string_view login, std::string_view password );
 } // namespace messenger
 #endif

@@ -1,5 +1,6 @@
 #include "messenger.hxx"
 #include <boost/json/serializer.hpp>
+#include <string_view>
 namespace messenger
 {
     QDir configsPath;
@@ -38,6 +39,24 @@ namespace messenger
         userFile.close();
         request[ "request" ] = "connect";
         request[ "user" ]    = { { "login", file.at( "login" ).as_string() }, { "password", file.at( "password" ).as_string() } };
+        websocket.write( boost::asio::buffer( boost::json::serialize( request ) ) );
+        boost::beast::flat_buffer buffer;
+        boost::beast::error_code err;
+        websocket.read( buffer, err );
+        if ( err == boost::beast::error::timeout )
+            return signInErrorCodes::TimeOut;
+        request = boost::json::parse( std::string( buffer_cast<const char *>( buffer.data() ), buffer.size() ) ).as_object();
+        if ( request.contains( "answer" ) && request[ "answer" ].is_int64() )
+            return static_cast<signInErrorCodes>( request[ "answer" ].as_int64() );
+        else
+            return signInErrorCodes::ServerError;
+    };
+
+    signInErrorCodes signUp( std::string_view login, std::string_view password )
+    {
+        boost::json::object request;
+        request[ "request" ] = "register";
+        request[ "user" ]    = { { "login", login }, { "password", password } };
         websocket.write( boost::asio::buffer( boost::json::serialize( request ) ) );
         boost::beast::flat_buffer buffer;
         boost::beast::error_code err;

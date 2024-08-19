@@ -193,15 +193,19 @@ void authWidget::auth()
     //     else if ( c == 600 )
     //         QMetaObject::invokeMethod( this, "updateLoadText", Qt::QueuedConnection, Q_ARG( QString, "..." ) );
     // }
-    auto data { messenger::signIn() };
-    if ( data == messenger::signInErrorCodes::Ok )
+    messenger::signInErrorCodes answ;
+    if ( registration )
+        answ = messenger::signUp( login->text().toStdString(), password->text().toStdString() );
+    else
+        answ = messenger::signIn();
+    if ( answ == messenger::signInErrorCodes::Ok )
     {
         screen->setCurrentWidget( screen->mainWidget );
         // mainWidget->reload();
     }
     else
     {
-        qDebug() << "Error SignIn: " << static_cast<int>( data ) << '\n';
+        qDebug() << "Error SignIn: " << static_cast<int>( answ ) << '\n';
         registration = 1;
     }
     // screen->auth_thread = nullptr;
