@@ -1,18 +1,17 @@
 #include "authWidget.hxx"
 #include "messenger.hxx"
+#include "notification.hxx"
 #include "screenWidget.hxx"
 #include <boost/json/object.hpp>
 #include <boost/json/serialize.hpp>
 #include <QMetaObject>
 #include <qcontainerfwd.h>
-#include <qdir.h>
 
 authWidget::authWidget( screenWidget *screen, QWidget *parent ) :
     screen( screen ),
     QMainWindow( parent )
 {
-    if ( objectName().isEmpty() )
-        setObjectName( "authWidget" );
+    setObjectName( "authWidget" );
     QSizePolicy sizePolicy( QSizePolicy::Policy::Fixed, QSizePolicy::Policy::Fixed );
     sizePolicy.setHorizontalStretch( 0 );
     sizePolicy.setVerticalStretch( 0 );
@@ -171,28 +170,10 @@ authWidget::authWidget( screenWidget *screen, QWidget *parent ) :
 
 authWidget::~authWidget()
 {
-    // if ( screen->auth_thread )
-    //     screen->auth_thread->join();
 }
 
 void authWidget::auth()
 {
-    // auto f { std::async( &messenger::signIn ) };
-    // uint32_t c { 0 };
-    // QMetaObject::invokeMethod( this, "updateLoadText", Qt::QueuedConnection, Q_ARG( QString, "." ) );
-    // while ( f.wait_for( std::chrono::seconds( 0 ) ) != std::future_status::ready )
-    // {
-    //     ++c;
-    //     if ( !( c % 900 ) )
-    //     {
-    //         QMetaObject::invokeMethod( this, "updateLoadText", Qt::QueuedConnection, Q_ARG( QString, "." ) );
-    //         c = 0;
-    //     }
-    //     else if ( c == 300 )
-    //         QMetaObject::invokeMethod( this, "updateLoadText", Qt::QueuedConnection, Q_ARG( QString, ".." ) );
-    //     else if ( c == 600 )
-    //         QMetaObject::invokeMethod( this, "updateLoadText", Qt::QueuedConnection, Q_ARG( QString, "..." ) );
-    // }
     messenger::signInErrorCodes answ;
     if ( registration )
         answ = messenger::signUp( login->text().toStdString(), password->text().toStdString() );
@@ -201,14 +182,14 @@ void authWidget::auth()
     if ( answ == messenger::signInErrorCodes::Ok )
     {
         screen->setCurrentWidget( screen->mainWidget );
-        // mainWidget->reload();
     }
     else
     {
-        qDebug() << "Error SignIn: " << static_cast<int>( answ ) << '\n';
+        auto notif { new notificationWidget( this ) };
+        notif->text->setText( QString( "SignIn Error Code " ) + std::to_string( static_cast<int>( answ ) ).c_str() );
         registration = 1;
+        restore();
     }
-    // screen->auth_thread = nullptr;
 }
 
 void authWidget::restore()
@@ -240,12 +221,6 @@ void authWidget::on_enterButton_clicked()
 {
     if ( registration )
         saveLoginData();
-    // if ( screen->auth_thread )
-    // {
-    //     screen->auth_thread->join();
-    //     delete screen->auth_thread;
-    // }
-    // screen->auth_thread = new std::thread { [ & ]()
     screen->auth->auth();
 }
 
@@ -254,8 +229,3 @@ void authWidget::on_referenceButton_clicked()
     registration = !registration;
     restore();
 }
-
-// void authWidget::updateLoadText( QString s )
-// {
-//     enterButton->setText( s );
-// }

@@ -68,7 +68,6 @@ dialogsPreviews::dialogsPreviews( mainWidget *parent ) :
                                                 }" ) );
     users->setDefaultDropAction( Qt::IgnoreAction );
     settingsOpenButton->setText( QCoreApplication::translate( "window", "≡", nullptr ) );
-    // searchField->setText( QString() );
     searchField->setPlaceholderText( QCoreApplication::translate( "window", "Поиск", nullptr ) );
     usersLayout->addWidget( users );
 }

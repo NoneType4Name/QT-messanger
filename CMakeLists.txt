@@ -34,8 +34,10 @@ set(PROJECT_SOURCES
     messenger.cxx
     screenWidget.hxx
     screenWidget.cxx
-    authWidget.cxx
     authWidget.hxx
+    authWidget.cxx
+    notification.hxx
+    notification.cxx
     mainWidget/mainWidget.hxx
     mainWidget/mainWidget.cxx
     mainWidget/dialogsPreviews.hxx

@@ -5,8 +5,7 @@
 screenWidget::screenWidget( QWidget *parent ) :
     QStackedWidget( parent )
 {
-    if ( objectName().isEmpty() )
-        setObjectName( "screenWidget" );
+    setObjectName( "screenWidget" );
     QSizePolicy sizePolicy( QSizePolicy::Policy::Fixed, QSizePolicy::Policy::Fixed );
     sizePolicy.setHorizontalStretch( 0 );
     sizePolicy.setVerticalStretch( 0 );
@@ -23,36 +22,21 @@ screenWidget::screenWidget( QWidget *parent ) :
 
 screenWidget::~screenWidget()
 {
-    // if ( auth_thread )
-    //     auth_thread->join();
-    // delete auth_thread;
 }
 
 void screenWidget::init()
 {
     if ( !messenger::configsPath.exists( "user.json" ) )
     {
-        // if ( auth_thread )
-        // {
-        //     auth_thread->join();
-        //     delete auth_thread;
-        // }
         setCurrentWidget( auth );
         auth->auth();
-        // thread.detach();
     }
     else
     {
         auto d { messenger::signIn() };
-        // auto f { std::async( &messenger::signIn ) };
-        // while ( f.wait_for( std::chrono::seconds( 0 ) ) != std::future_status::ready )
-        // {
-        // }
-        // auto d { f.get() };
         if ( d == messenger::signInErrorCodes::Ok )
         {
             setCurrentWidget( mainWidget );
-            // mainWidget->reload();
         }
         else
         {

@@ -41,7 +41,6 @@ class authWidget : public QMainWindow
   private slots:
     void on_enterButton_clicked();
     void on_referenceButton_clicked();
-    // void updateLoadText( QString s );
 
   private:
     void saveLoginData();
